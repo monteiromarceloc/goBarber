@@ -12,7 +12,7 @@ class CreateAppointmentService {
   public async execute({ provider, date }: RequestDTO): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository)
     const appointmentDate = startOfHour(date);
-    const appointmentInSameDate = appointmentsRepository.findByDate(
+    const appointmentInSameDate = await appointmentsRepository.findByDate(
       appointmentDate,
     );
 
