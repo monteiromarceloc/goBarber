@@ -12,7 +12,7 @@ sessionsRouter.post('/', async (request, response) => {
     const { name } = user
     return response.json({ name, token });
   } catch (err) {
-    return response.status(400).json({ error: err.message });
+    return response.status(err.statusCode).json({ error: err.message });
   }
 });
 

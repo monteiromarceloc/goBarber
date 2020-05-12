@@ -4,6 +4,7 @@ import { sign } from 'jsonwebtoken';
 
 import authConfig from "../config/auth";
 import User from '../models/User'
+import AppError from '../errors/AppError'
 
 interface Request {
   email: string;
@@ -15,18 +16,18 @@ interface Response {
   token: string,
 }
 
-class CreateUserService {
+class AuthenticateUserService {
   public async execute({ email, password }: Request): Promise<Response> {
     const userRepository = getRepository(User);
 
     const user = await userRepository.findOne({ where: { email } })
     if (!user) {
-      throw new Error('Incorrect email/password combination.');
+      throw new AppError('Incorrect email/password combination.', 401);
     }
 
     const passwordMatched = await compare(password, user.password)
     if (!passwordMatched) {
-      throw new Error('Incorrect email/password combination.');
+      throw new AppError('Incorrect email/password combination.', 401);
     }
 
     const { secret, expiresIn } = authConfig.jwt
@@ -40,4 +41,4 @@ class CreateUserService {
   }
 }
 
-export default CreateUserService
+export default AuthenticateUserService
