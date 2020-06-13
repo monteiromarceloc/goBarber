@@ -52,9 +52,10 @@ export const Content = styled.div`
   }
 `;
 
-export const Background = styled.img`
+export const Background = styled.div`
   flex: 1;
   background: url(${backgroundImg}) no-repeat center;
   background-size: cover;
   border: none;
+  padding: 0;
 `;
