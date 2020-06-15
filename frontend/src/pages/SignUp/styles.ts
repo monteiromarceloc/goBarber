@@ -57,5 +57,4 @@ export const Background = styled.div`
   background: url(${backgroundImg}) no-repeat center;
   background-size: cover;
   border: none;
-  padding: 0;
 `;
