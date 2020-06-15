@@ -8,7 +8,7 @@ import * as Yup from 'yup'
 import { useAuth } from '../../hooks/Auth'
 import { useToast } from '../../hooks/Toast'
 import getValidationErrors from '../../utils/getValidationErrors'
-import { Container, Content, Background } from './styles';
+import { Container, Content, Background, AnimationContainer } from './styles';
 import { Input, Button } from '../../components'
 import logoImg from '../../assets/logo.svg';
 
@@ -55,15 +55,17 @@ const SignIn: React.FC = () => {
   return (
     <Container>
       <Content>
-        <img src={logoImg} alt='goBarber' />
-        <Form onSubmit={handleSubmit} ref={formRef}>
-          <h1>Faça seu login</h1>
-          <Input name='email' placeholder='Email' icon={FiMail} />
-          <Input name='password' placeholder='Senha' type='password' icon={FiLock} />
-          <Button type='submit'>Entrar</Button>
-          <a href='forgot'>Equeci minha senha</a>
-        </Form>
-        <Link to='cadastro'><FiLogIn />Criar conta</Link>
+        <AnimationContainer>
+          <img src={logoImg} alt='goBarber' />
+          <Form onSubmit={handleSubmit} ref={formRef}>
+            <h1>Faça seu login</h1>
+            <Input name='email' placeholder='Email' icon={FiMail} />
+            <Input name='password' placeholder='Senha' type='password' icon={FiLock} />
+            <Button type='submit'>Entrar</Button>
+            <a href='forgot'>Equeci minha senha</a>
+          </Form>
+          <Link to='cadastro'><FiLogIn />Criar conta</Link>
+        </AnimationContainer>
       </Content>
       <Background />
     </Container>

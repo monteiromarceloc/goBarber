@@ -6,7 +6,7 @@ import { FormHandles } from '@unform/core'
 import * as Yup from 'yup'
 
 import getValidationErrors from '../../utils/getValidationErrors'
-import { Container, Content, Background } from './styles';
+import { Container, Content, Background, AnimationContainer } from './styles';
 import { Input, Button } from '../../components'
 import logoImg from '../../assets/logo.svg'
 
@@ -35,15 +35,17 @@ const SignUp: React.FC = () => {
     <Container>
       <Background />
       <Content>
-        <img src={logoImg} alt='goBarber' />
-        <Form onSubmit={handleSubmit} ref={formRef}>
-          <h1>Faça seu cadastro</h1>
-          <Input name='name' placeholder='Name' icon={FiUser} />
-          <Input name='email' placeholder='Email' icon={FiMail} />
-          <Input name='password' placeholder='Senha' type='password' icon={FiLock} />
-          <Button type='submit'>Cadastrar</Button>
-        </Form>
-        <Link to='/'><FiArrowLeft />Voltar para Login</Link>
+        <AnimationContainer>
+          <img src={logoImg} alt='goBarber' />
+          <Form onSubmit={handleSubmit} ref={formRef}>
+            <h1>Faça seu cadastro</h1>
+            <Input name='name' placeholder='Name' icon={FiUser} />
+            <Input name='email' placeholder='Email' icon={FiMail} />
+            <Input name='password' placeholder='Senha' type='password' icon={FiLock} />
+            <Button type='submit'>Cadastrar</Button>
+          </Form>
+          <Link to='/'><FiArrowLeft />Voltar para Login</Link>
+        </AnimationContainer>
       </Content>
     </Container>
   );
