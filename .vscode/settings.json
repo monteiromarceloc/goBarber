@@ -2,5 +2,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true // eslint
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "explorer.compactFolders": false
 }
