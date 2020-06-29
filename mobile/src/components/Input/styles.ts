@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 interface ContainerProps {
   isFocused: boolean;
+  isErrored: boolean;
 }
 
 export const Container = styled.View<ContainerProps>`
@@ -12,7 +13,7 @@ export const Container = styled.View<ContainerProps>`
   border-radius: 10px;
   margin-bottom: 8px;
   border-width: 2px;
-  border-color: ${({ isFocused }) => (isFocused ? '#ff9000' : '#232129')};
+  border-color: ${({ isFocused, isErrored }) => (isErrored ? '#c53030' : isFocused ? '#ff9000' : '#232129')};
 
   flex-direction: row;
   align-items: center;

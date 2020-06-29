@@ -1,20 +1,26 @@
 import React, { useRef, useCallback } from 'react';
 import {
-  Image, View, KeyboardAvoidingView, Platform, ScrollView,
+  Image, View, KeyboardAvoidingView, Platform, ScrollView, Alert, TextInput,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Feather';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
+import * as Yup from 'yup';
 
-import Icon from 'react-native-vector-icons/Feather';
-
+import getValidationErrors from '../../utils/getValidationErrors';
 import logoImg from '../../assets/logo.png';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-
 import {
   Container, Title, BackToSignInButton, BackToSignInText,
 } from './styles';
+
+interface SignInFormData {
+  name: string;
+  email: string;
+  password: string;
+}
 
 const SignUp: React.FC = () => {
   const nav = useNavigation();
@@ -22,8 +28,30 @@ const SignUp: React.FC = () => {
   const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
 
-  const handleSubmit = useCallback((data: any) => {
-    console.log('data: ', data);
+  const handleSubmit = useCallback(async (data: SignInFormData) => {
+    try {
+      formRef.current?.setErrors({});
+      const schema = Yup.object().shape({
+        name: Yup.string().required(),
+        email: Yup.string().required('Email obrigatório').email('Digite um email válido'),
+        password: Yup.string().required('Senha obrigatória'),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      // await signIn({
+      //   email: data.email,
+      //   password: data.password,
+      // });
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        formRef.current?.setErrors(getValidationErrors(error));
+      } else {
+        Alert.alert('Algo deu errado', 'Ocorreu um erro ao fazer login, cheque as credenciais.');
+      }
+    }
   }, []);
 
   return (
