@@ -8,6 +8,7 @@ import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
+import api from '../../services/api';
 import getValidationErrors from '../../utils/getValidationErrors';
 import logoImg from '../../assets/logo.png';
 import Input from '../../components/Input';
@@ -41,14 +42,14 @@ const SignUp: React.FC = () => {
         abortEarly: false,
       });
 
-      // await signIn({
-      //   email: data.email,
-      //   password: data.password,
-      // });
+      await api.post('users', data);
+      Alert.alert('Cadastro realizado com sucesso', 'Você já pode fazer login na aplicação');
+      nav.goBack();
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         formRef.current?.setErrors(getValidationErrors(error));
       } else {
+        console.log('error: ', JSON.stringify(error));
         Alert.alert('Algo deu errado', 'Ocorreu um erro ao fazer login, cheque as credenciais.');
       }
     }
