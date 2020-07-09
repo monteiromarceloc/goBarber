@@ -25,7 +25,7 @@ describe('AuthenticateUser', () => {
     const authenticateUser = new AuthenticateUserService(fakeUsersRepository, fakeHashProvider);
     const email = 'jd@example.com';
     const password = '123456';
-    expect(authenticateUser.execute({ email, password }))
+    await expect(authenticateUser.execute({ email, password }))
       .rejects.toBeInstanceOf(AppError);
   })
 
@@ -38,7 +38,7 @@ describe('AuthenticateUser', () => {
     const email = 'jd@example.com';
     const password = '123456';
     await createUser.execute({ name, email, password })
-    expect(authenticateUser.execute({ email, password: 'wrong' }))
+    await expect(authenticateUser.execute({ email, password: 'wrong' }))
       .rejects.toBeInstanceOf(AppError);
   })
 })
