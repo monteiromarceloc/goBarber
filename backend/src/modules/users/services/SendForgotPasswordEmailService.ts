@@ -1,12 +1,11 @@
 import { inject, injectable } from 'tsyringe'
 
-// import User from '../infra/typeorm/entities/User'
 import AppError from '@shared/errors/AppError'
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider'
 import IUsersRepository from '../repositories/IUsersRepository'
 import IUserTokenRepository from '../repositories/IUserTokensRepository'
 
-interface Request {
+interface IRequest {
   email: string;
 }
 
@@ -20,7 +19,7 @@ class SendForgotPasswordEmailService {
     @inject('UserTokensRepository')
     private userTokensRepository: IUserTokenRepository,
   ) { }
-  public async execute({ email }: Request): Promise<void> {
+  public async execute({ email }: IRequest): Promise<void> {
 
     const checkUserExists = await this.usersRepository.findByEmail(email);
     if (!checkUserExists) {
