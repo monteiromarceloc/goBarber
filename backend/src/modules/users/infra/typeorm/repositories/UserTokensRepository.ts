@@ -1,7 +1,6 @@
 import { getRepository, Repository } from 'typeorm'
 import UserToken from '../entities/UserToken';
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
-import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 
 class UserTokensRepository implements IUserTokensRepository {
   private ormRepository: Repository<UserToken>; // tipagem
@@ -17,10 +16,9 @@ class UserTokensRepository implements IUserTokensRepository {
 
   public async generate(user_id: string): Promise<UserToken> {
     const userToken = this.ormRepository.create({
-      user_id;
+      user_id
     })
-
-    this.ormRepository.save(userToken);
+    await this.ormRepository.save(userToken);
     return userToken
   }
 
